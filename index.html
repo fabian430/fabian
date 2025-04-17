@@ -6,17 +6,17 @@
   <title>Fabian Töllner</title>
   <style>
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    body, html {
+    html, body {
       height: 100%;
       font-family: sans-serif;
     }
 
-    .half {
+    .top-half, .bottom-half {
       height: 50vh;
       display: flex;
       justify-content: center;
@@ -35,44 +35,29 @@
       flex-direction: column;
     }
 
-    .name {
+    .name-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      line-height: 0;
+      z-index: 2;
+    }
+
+    .name-top {
+      color: white;
       font-size: 3em;
       font-weight: bold;
-      background: linear-gradient(to bottom, white 50%, black 50%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      position: absolute;
-      top: calc(50vh - 1.5em);
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
     }
 
-    .main-content {
-      padding: 80px 20px 40px;
-      text-align: center;
+    .name-bottom {
+      color: black;
+      font-size: 3em;
+      font-weight: bold;
+      position: relative;
+      top: -0.1em;
     }
 
-    .section {
-      display: none;
-    }
-
-    .stars {
-      font-size: 2em;
-      cursor: pointer;
-      color: #ccc;
-    }
-
-    .stars .selected {
-      color: gold;
-    }
-
-    #average {
-      margin-top: 15px;
-      font-size: 1.2em;
-    }
-
-    /* Hamburger Menü */
     .menu-icon {
       position: fixed;
       top: 20px;
@@ -89,7 +74,6 @@
       transition: 0.4s;
     }
 
-    /* Sidebar Menü */
     .sidebar {
       height: 100%;
       width: 0;
@@ -115,6 +99,30 @@
     .sidebar a:hover {
       background-color: #575757;
     }
+
+    .main-content {
+      padding: 80px 20px 40px;
+      text-align: center;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .stars {
+      font-size: 2em;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .stars .selected {
+      color: gold;
+    }
+
+    #average {
+      margin-top: 15px;
+      font-size: 1.2em;
+    }
   </style>
 </head>
 <body>
@@ -126,19 +134,24 @@
     <div></div>
   </div>
 
-  <!-- Sidebar Menü -->
+  <!-- Sidebar -->
   <div id="mySidebar" class="sidebar">
     <a href="#" onclick="openSection('date')">Date</a>
     <a href="#" onclick="openSection('kontakt')">Kontakt</a>
     <a href="#" onclick="openSection('bewertung')">Bewertung</a>
   </div>
 
-  <!-- Farblich geteilte Hälfte -->
-  <div class="half top-half"></div>
-  <div class="half bottom-half"></div>
-  <div class="name">Fabian Töllner</div>
+  <!-- Zwei Hälften -->
+  <div class="top-half"></div>
+  <div class="bottom-half"></div>
 
-  <!-- Inhalte (aus Menü) -->
+  <!-- Name in der Mitte geteilt -->
+  <div class="name-wrapper">
+    <div class="name-top">Fabian Töllner</div>
+    <div class="name-bottom">Fabian Töllner</div>
+  </div>
+
+  <!-- Inhalte -->
   <div class="main-content">
     <div id="date" class="section">
       <p>Schreib mir wann und wo!</p>
@@ -177,7 +190,6 @@
       toggleMenu();
     }
 
-    // Bewertung speichern + anzeigen
     const stars = document.querySelectorAll('#stars span');
     const averageDisplay = document.getElementById('average');
     let ratings = JSON.parse(localStorage.getItem('ratings')) || [];
@@ -189,7 +201,7 @@
       }
       const sum = ratings.reduce((a, b) => a + b, 0);
       const avg = (sum / ratings.length).toFixed(1);
-      averageDisplay.textContent = `Durchschnittliche Bewertung: ${avg} Sterne (${ratings.length} Bewertungen)`;
+      averageDisplay.textContent = `Durchschnitt: ${avg} Sterne (${ratings.length} Bewertungen)`;
     }
 
     stars.forEach(star => {
