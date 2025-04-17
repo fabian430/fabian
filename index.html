@@ -5,21 +5,48 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fabian Töllner</title>
   <style>
-    body {
-      background-color: #000;
-      color: #89CFF0;
-      font-family: sans-serif;
-      text-align: center;
-      padding: 50px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 40px;
+    body, html {
+      height: 100%;
+      font-family: sans-serif;
+    }
+
+    .split {
+      height: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .top {
+      background-color: black;
+      color: white;
+      position: relative;
+    }
+
+    .bottom {
+      background-color: white;
+      color: black;
+      flex-direction: column;
+    }
+
+    .name {
+      font-size: 3em;
+      font-weight: bold;
+      position: absolute;
+      bottom: -0.6em;
+      background: linear-gradient(to bottom, white 50%, black 50%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     button {
-      display: block;
       background-color: #89CFF0;
       color: black;
       border: none;
@@ -27,21 +54,20 @@
       font-size: 18px;
       border-radius: 6px;
       cursor: pointer;
-      margin: 20px auto;
-      width: 200px;
+      margin: 15px;
     }
 
     .info-box {
-      margin-top: 20px;
+      margin-top: 15px;
+      font-size: 1.1em;
       display: none;
-      font-size: 1.2em;
     }
 
     a.tel-link {
       display: block;
       margin-top: 10px;
-      font-size: 1.4em;
-      color: #89CFF0;
+      font-size: 1.3em;
+      color: inherit;
       text-decoration: none;
     }
 
@@ -52,7 +78,6 @@
     .stars {
       font-size: 2em;
       cursor: pointer;
-      color: white;
     }
 
     .stars .selected {
@@ -62,30 +87,34 @@
 </head>
 <body>
 
-  <h1>Fabian Töllner</h1>
-
-  <button onclick="showBox('dateBox')">Date</button>
-  <div id="dateBox" class="info-box">
-    <p>Schreib mir wann und wo</p>
-    <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
+  <div class="split top">
+    <div class="name">Fabian Töllner</div>
   </div>
 
-  <button onclick="showBox('nummerBox')">Nummer</button>
-  <div id="nummerBox" class="info-box">
-    <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
-  </div>
-
-  <button onclick="showBox('reviewBox')">Bewertung dalassen</button>
-  <div id="reviewBox" class="info-box">
-    <p>Wie war dein Eindruck?</p>
-    <div class="stars" id="stars">
-      <span data-star="1">&#9733;</span>
-      <span data-star="2">&#9733;</span>
-      <span data-star="3">&#9733;</span>
-      <span data-star="4">&#9733;</span>
-      <span data-star="5">&#9733;</span>
+  <div class="split bottom">
+    <button onclick="showBox('dateBox')">Date</button>
+    <div id="dateBox" class="info-box">
+      <p>Schreib mir wann und wo</p>
+      <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
     </div>
-    <p id="thanksMsg" style="margin-top:10px;"></p>
+
+    <button onclick="showBox('nummerBox')">Nummer</button>
+    <div id="nummerBox" class="info-box">
+      <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
+    </div>
+
+    <button onclick="showBox('reviewBox')">Bewertung dalassen</button>
+    <div id="reviewBox" class="info-box">
+      <p>Wie war dein Eindruck?</p>
+      <div class="stars" id="stars">
+        <span data-star="1">&#9733;</span>
+        <span data-star="2">&#9733;</span>
+        <span data-star="3">&#9733;</span>
+        <span data-star="4">&#9733;</span>
+        <span data-star="5">&#9733;</span>
+      </div>
+      <p id="thanksMsg" style="margin-top:10px;"></p>
+    </div>
   </div>
 
   <script>
@@ -94,7 +123,6 @@
       document.getElementById(id).style.display = 'block';
     }
 
-    // Sterne-Bewertung
     const stars = document.querySelectorAll('#stars span');
     const thanksMsg = document.getElementById('thanksMsg');
 
