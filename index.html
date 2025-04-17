@@ -2,109 +2,126 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fabian Töllner</title>
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
-    body, html {
-      height: 100%;
+    body {
       font-family: sans-serif;
-    }
-
-    .split {
-      height: 50%;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .top {
-      background-color: black;
-      color: white;
-      position: relative;
-    }
-
-    .bottom {
-      background-color: white;
+      background: white;
       color: black;
-      flex-direction: column;
     }
 
-    .name {
-      font-size: 3em;
-      font-weight: bold;
-      position: absolute;
-      bottom: -0.6em;
-      background: linear-gradient(to bottom, white 50%, black 50%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    button {
-      background-color: #89CFF0;
-      color: black;
-      border: none;
-      padding: 12px 30px;
-      font-size: 18px;
-      border-radius: 6px;
+    /* Hamburger Menü */
+    .menu-icon {
+      position: fixed;
+      top: 20px;
+      left: 20px;
       cursor: pointer;
-      margin: 15px;
+      z-index: 1001;
     }
 
-    .info-box {
-      margin-top: 15px;
-      font-size: 1.1em;
-      display: none;
+    .menu-icon div {
+      width: 30px;
+      height: 4px;
+      background: black;
+      margin: 6px 0;
+      transition: 0.4s;
     }
 
-    a.tel-link {
-      display: block;
-      margin-top: 10px;
-      font-size: 1.3em;
-      color: inherit;
+    /* Sidebar Menü */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+
+    .sidebar a {
+      padding: 15px 30px;
       text-decoration: none;
+      font-size: 20px;
+      color: white;
+      display: block;
+      transition: 0.3s;
     }
 
-    a.tel-link:hover {
-      text-decoration: underline;
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    .main {
+      padding: 100px 20px 40px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      display: none;
     }
 
     .stars {
       font-size: 2em;
       cursor: pointer;
+      color: #ccc;
     }
 
     .stars .selected {
       color: gold;
     }
+
+    #average {
+      margin-top: 15px;
+      font-size: 1.2em;
+    }
   </style>
 </head>
 <body>
 
-  <div class="split top">
-    <div class="name">Fabian Töllner</div>
+  <!-- Hamburger Menü -->
+  <div class="menu-icon" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
 
-  <div class="split bottom">
-    <button onclick="showBox('dateBox')">Date</button>
-    <div id="dateBox" class="info-box">
-      <p>Schreib mir wann und wo</p>
-      <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
+  <!-- Sidebar Menü -->
+  <div id="mySidebar" class="sidebar">
+    <a href="#" onclick="openSection('date')">Date</a>
+    <a href="#" onclick="openSection('kontakt')">Kontakt</a>
+    <a href="#" onclick="openSection('bewertung')">Bewertung</a>
+  </div>
+
+  <!-- Inhalt -->
+  <div class="main">
+    <h1>Fabian Töllner</h1>
+
+    <div id="date" class="section">
+      <p>Schreib mir wann und wo!</p>
+      <a href="tel:+4915773791110">+4915773791110</a>
     </div>
 
-    <button onclick="showBox('nummerBox')">Nummer</button>
-    <div id="nummerBox" class="info-box">
-      <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
+    <div id="kontakt" class="section">
+      <p>Direkt erreichbar unter:</p>
+      <a href="tel:+4915773791110">+4915773791110</a>
     </div>
 
-    <button onclick="showBox('reviewBox')">Bewertung dalassen</button>
-    <div id="reviewBox" class="info-box">
+    <div id="bewertung" class="section">
       <p>Wie war dein Eindruck?</p>
       <div class="stars" id="stars">
         <span data-star="1">&#9733;</span>
@@ -113,30 +130,58 @@
         <span data-star="4">&#9733;</span>
         <span data-star="5">&#9733;</span>
       </div>
-      <p id="thanksMsg" style="margin-top:10px;"></p>
+      <p id="average"></p>
     </div>
   </div>
 
   <script>
-    function showBox(id) {
-      document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
-      document.getElementById(id).style.display = 'block';
+    function toggleMenu() {
+      const sidebar = document.getElementById("mySidebar");
+      if (sidebar.style.width === "250px") {
+        sidebar.style.width = "0";
+      } else {
+        sidebar.style.width = "250px";
+      }
     }
 
+    function openSection(id) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById(id).style.display = 'block';
+      toggleMenu();
+    }
+
+    // Bewertungssystem mit Speicher
     const stars = document.querySelectorAll('#stars span');
-    const thanksMsg = document.getElementById('thanksMsg');
+    const averageDisplay = document.getElementById('average');
+
+    let ratings = JSON.parse(localStorage.getItem('ratings')) || [];
+
+    function updateAverage() {
+      if (ratings.length === 0) {
+        averageDisplay.textContent = "Noch keine Bewertungen.";
+        return;
+      }
+      const sum = ratings.reduce((a, b) => a + b, 0);
+      const avg = (sum / ratings.length).toFixed(1);
+      averageDisplay.textContent = `Durchschnittliche Bewertung: ${avg} Sterne (${ratings.length} Bewertungen)`;
+    }
 
     stars.forEach(star => {
       star.addEventListener('click', () => {
-        const rating = star.getAttribute('data-star');
+        const rating = parseInt(star.dataset.star);
+        ratings.push(rating);
+        localStorage.setItem('ratings', JSON.stringify(ratings));
         stars.forEach(s => s.classList.remove('selected'));
         for (let i = 0; i < rating; i++) {
           stars[i].classList.add('selected');
         }
-        thanksMsg.innerText = `Danke für deine Bewertung: ${rating} Sterne!`;
+        updateAverage();
       });
     });
-  </script>
 
+    updateAverage();
+  </script>
 </body>
 </html>
