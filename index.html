@@ -69,7 +69,7 @@
     .menu-icon div {
       width: 30px;
       height: 4px;
-      background: black;
+      background: white; /* weiß auf schwarz */
       margin: 6px 0;
       transition: 0.4s;
     }
@@ -98,6 +98,17 @@
 
     .sidebar a:hover {
       background-color: #575757;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 900;
+      background: rgba(0, 0, 0, 0.3);
+      display: none;
     }
 
     .main-content {
@@ -134,24 +145,27 @@
     <div></div>
   </div>
 
-  <!-- Sidebar -->
+  <!-- Sidebar Menü -->
   <div id="mySidebar" class="sidebar">
     <a href="#" onclick="openSection('date')">Date</a>
     <a href="#" onclick="openSection('kontakt')">Kontakt</a>
     <a href="#" onclick="openSection('bewertung')">Bewertung</a>
   </div>
 
+  <!-- Klickbarer Overlay -->
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
   <!-- Zwei Hälften -->
   <div class="top-half"></div>
   <div class="bottom-half"></div>
 
-  <!-- Name in der Mitte geteilt -->
+  <!-- Geteilter Name -->
   <div class="name-wrapper">
     <div class="name-top">Fabian Töllner</div>
     <div class="name-bottom">Fabian Töllner</div>
   </div>
 
-  <!-- Inhalte -->
+  <!-- Inhalt -->
   <div class="main-content">
     <div id="date" class="section">
       <p>Schreib mir wann und wo!</p>
@@ -179,7 +193,14 @@
   <script>
     function toggleMenu() {
       const sidebar = document.getElementById("mySidebar");
-      sidebar.style.width = sidebar.style.width === "250px" ? "0" : "250px";
+      const overlay = document.getElementById("overlay");
+      if (sidebar.style.width === "250px") {
+        sidebar.style.width = "0";
+        overlay.style.display = "none";
+      } else {
+        sidebar.style.width = "250px";
+        overlay.style.display = "block";
+      }
     }
 
     function openSection(id) {
