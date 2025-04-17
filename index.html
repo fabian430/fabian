@@ -1,93 +1,86 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fabians Date-Seite</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fabian Töllner</title>
   <style>
     body {
       background-color: #000;
-      color: #89CFF0; /* Babyblau */
+      color: #89CFF0;
       font-family: sans-serif;
       text-align: center;
-      padding: 40px;
+      padding: 50px;
     }
 
     h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
+      font-size: 2.5em;
+      margin-bottom: 40px;
     }
 
     button {
       background-color: #89CFF0;
       color: black;
       border: none;
-      padding: 12px 24px;
-      font-size: 16px;
-      cursor: pointer;
+      padding: 12px 30px;
+      font-size: 18px;
       border-radius: 6px;
-    }
-
-    form {
-      margin-top: 20px;
-      display: none;
-    }
-
-    input, textarea {
-      display: block;
-      margin: 10px auto;
-      padding: 10px;
-      border-radius: 4px;
-      border: none;
-      font-size: 16px;
-      width: 80%;
-      max-width: 400px;
-    }
-
-    input[type="submit"] {
-      background-color: #89CFF0;
-      color: black;
-      font-weight: bold;
       cursor: pointer;
+      margin: 10px;
+    }
+
+    .info-box {
+      margin-top: 25px;
+      display: none;
+      font-size: 1.2em;
+    }
+
+    a.tel-link {
+      display: block;
+      margin-top: 10px;
+      font-size: 1.4em;
+      color: #89CFF0;
+      text-decoration: none;
+    }
+
+    a.tel-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <h1>Willst du ein Date mit mir?</h1>
-  <button onclick="document.getElementById('dateForm').style.display='block'">Date buchen</button>
 
-  <form id="dateForm" action="https://formspree.io/f/xldjyrzz" method="POST">
-    <label for="name">Dein Name:</label>
-    <input type="text" name="name" id="name" required>
+  <h1>Fabian Töllner</h1>
 
-    <label for="date">Wunschtermin:</label>
-    <input type="date" name="date" id="date" required>
+  <button onclick="showBox('dateBox')">Date</button>
+  <button onclick="showBox('nummerBox')">Nummer</button>
 
-    <input type="hidden" name="uhrzeit" value="19:00 Uhr">
+  <div id="dateBox" class="info-box">
+    <p>Schreib mir wann und wo</p>
+    <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
+  </div>
 
-    <label for="message">Nachricht (optional):</label>
-    <textarea name="message" id="message" rows="4"></textarea>
+  <div id="nummerBox" class="info-box">
+    <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
+  </div>
 
-    <input type="submit" value="Date anfragen">
-  </form>
+  <br><br><br>
+
+  <button onclick="showBox('reviewBox')">Bewertung dalassen</button>
+
+  <div id="reviewBox" class="info-box">
+    <p>Schick mir deine Bewertung per SMS oder DM</p>
+    <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
+  </div>
 
   <script>
-    const startDate = new Date("2025-04-18"); // Erster gültiger Freitag (ändern wenn nötig)
-    const MS_PER_WEEK = 1000 * 60 * 60 * 24 * 7;
-
-    document.getElementById('dateForm').addEventListener('submit', function(event) {
-      const dateInput = document.getElementById('date').value;
-      const inputDate = new Date(dateInput);
-
-      const isFriday = inputDate.getDay() === 5;
-      const weekDiff = Math.floor((inputDate - startDate) / MS_PER_WEEK);
-      const isEverySecondFriday = weekDiff % 2 === 0;
-
-      if (!isFriday || !isEverySecondFriday) {
-        alert("Nur jeden zweiten Freitag ist verfügbar – bitte wähle entsprechend.");
-        event.preventDefault();
-      }
-    });
+    function showBox(id) {
+      // Alle verstecken
+      document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
+      // Nur das geklickte zeigen
+      document.getElementById(id).style.display = 'block';
+    }
   </script>
+
 </body>
 </html>
