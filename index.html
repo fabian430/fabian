@@ -19,6 +19,7 @@
     }
 
     button {
+      display: block;
       background-color: #89CFF0;
       color: black;
       border: none;
@@ -26,11 +27,12 @@
       font-size: 18px;
       border-radius: 6px;
       cursor: pointer;
-      margin: 10px;
+      margin: 20px auto;
+      width: 200px;
     }
 
     .info-box {
-      margin-top: 25px;
+      margin-top: 20px;
       display: none;
       font-size: 1.2em;
     }
@@ -46,6 +48,16 @@
     a.tel-link:hover {
       text-decoration: underline;
     }
+
+    .stars {
+      font-size: 2em;
+      cursor: pointer;
+      color: white;
+    }
+
+    .stars .selected {
+      color: gold;
+    }
   </style>
 </head>
 <body>
@@ -53,33 +65,49 @@
   <h1>Fabian Töllner</h1>
 
   <button onclick="showBox('dateBox')">Date</button>
-  <button onclick="showBox('nummerBox')">Nummer</button>
-
   <div id="dateBox" class="info-box">
     <p>Schreib mir wann und wo</p>
     <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
   </div>
 
+  <button onclick="showBox('nummerBox')">Nummer</button>
   <div id="nummerBox" class="info-box">
     <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
   </div>
 
-  <br><br><br>
-
   <button onclick="showBox('reviewBox')">Bewertung dalassen</button>
-
   <div id="reviewBox" class="info-box">
-    <p>Schick mir deine Bewertung per SMS oder DM</p>
-    <a href="tel:+4915773791110" class="tel-link">+4915773791110</a>
+    <p>Wie war dein Eindruck?</p>
+    <div class="stars" id="stars">
+      <span data-star="1">&#9733;</span>
+      <span data-star="2">&#9733;</span>
+      <span data-star="3">&#9733;</span>
+      <span data-star="4">&#9733;</span>
+      <span data-star="5">&#9733;</span>
+    </div>
+    <p id="thanksMsg" style="margin-top:10px;"></p>
   </div>
 
   <script>
     function showBox(id) {
-      // Alle verstecken
       document.querySelectorAll('.info-box').forEach(el => el.style.display = 'none');
-      // Nur das geklickte zeigen
       document.getElementById(id).style.display = 'block';
     }
+
+    // Sterne-Bewertung
+    const stars = document.querySelectorAll('#stars span');
+    const thanksMsg = document.getElementById('thanksMsg');
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const rating = star.getAttribute('data-star');
+        stars.forEach(s => s.classList.remove('selected'));
+        for (let i = 0; i < rating; i++) {
+          stars[i].classList.add('selected');
+        }
+        thanksMsg.innerText = `Danke für deine Bewertung: ${rating} Sterne!`;
+      });
+    });
   </script>
 
 </body>
