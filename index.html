@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fabian Töllner</title>
   <style>
     * {
@@ -11,72 +11,234 @@
       box-sizing: border-box;
     }
 
-    body, html {
+    html, body {
       height: 100%;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
+      font-family: sans-serif;
+    }
+
+    .top-half, .bottom-half {
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
     .top-half {
-      height: 50vh;
       background-color: black;
-      position: relative;
+      color: white;
     }
 
     .bottom-half {
-      height: 50vh;
       background-color: white;
-      position: relative;
+      color: black;
+      flex-direction: column;
     }
 
     .name-wrapper {
       position: absolute;
-      top: 0;
+      top: 50%;
       left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      width: 100%;
-      pointer-events: none;
-    }
-
-    .name-top,
-    .name-bottom {
-      font-size: 3em;
-      font-weight: bold;
-      line-height: 1;
-      position: relative;
+      transform: translate(-50%, -50%);
+      line-height: 0;
+      z-index: 2;
     }
 
     .name-top {
-      padding-top: 35vh;
-      height: 15vh;
-      overflow: hidden;
-      background: linear-gradient(to bottom, white 60%, transparent 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: white;
+      font-size: 3em;
+      font-weight: bold;
     }
 
     .name-bottom {
-      height: 15vh;
-      overflow: hidden;
-      background: linear-gradient(to top, black 60%, transparent 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: black;
+      font-size: 3em;
+      font-weight: bold;
+      position: relative;
+      top: -0.1em;
+    }
+
+    .menu-icon {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .menu-icon div {
+      width: 30px;
+      height: 4px;
+      background: white; /* weiß auf schwarz */
+      margin: 6px 0;
+      transition: 0.4s;
+    }
+
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      z-index: 1000;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      overflow-x: hidden;
+      transition: 0.5s;
+      padding-top: 60px;
+    }
+
+    .sidebar a {
+      padding: 15px 30px;
+      text-decoration: none;
+      font-size: 20px;
+      color: white;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #575757;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 900;
+      background: rgba(0, 0, 0, 0.3);
+      display: none;
+    }
+
+    .main-content {
+      padding: 80px 20px 40px;
+      text-align: center;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .stars {
+      font-size: 2em;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .stars .selected {
+      color: gold;
+    }
+
+    #average {
+      margin-top: 15px;
+      font-size: 1.2em;
     }
   </style>
 </head>
 <body>
 
-  <div class="top-half">
-    <div class="name-wrapper">
-      <div class="name-top">Fabian Töllner</div>
-      <div class="name-bottom">Fabian Töllner</div>
+  <!-- Hamburger Menü -->
+  <div class="menu-icon" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+
+  <!-- Sidebar Menü -->
+  <div id="mySidebar" class="sidebar">
+    <a href="#" onclick="openSection('date')">Date</a>
+    <a href="#" onclick="openSection('kontakt')">Kontakt</a>
+    <a href="#" onclick="openSection('bewertung')">Bewertung</a>
+  </div>
+
+  <!-- Klickbarer Overlay -->
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+
+  <!-- Zwei Hälften -->
+  <div class="top-half"></div>
+  <div class="bottom-half"></div>
+
+  <!-- Geteilter Name -->
+  <div class="name-wrapper">
+    <div class="name-top">Fabian Töllner</div>
+    <div class="name-bottom">Fabian Töllner</div>
+  </div>
+
+  <!-- Inhalt -->
+  <div class="main-content">
+    <div id="date" class="section">
+      <p>Schreib mir wann und wo!</p>
+      <a href="tel:+4915773791110">+4915773791110</a>
+    </div>
+
+    <div id="kontakt" class="section">
+      <p>Direkt erreichbar unter:</p>
+      <a href="tel:+4915773791110">+4915773791110</a>
+    </div>
+
+    <div id="bewertung" class="section">
+      <p>Wie war dein Eindruck?</p>
+      <div class="stars" id="stars">
+        <span data-star="1">&#9733;</span>
+        <span data-star="2">&#9733;</span>
+        <span data-star="3">&#9733;</span>
+        <span data-star="4">&#9733;</span>
+        <span data-star="5">&#9733;</span>
+      </div>
+      <p id="average"></p>
     </div>
   </div>
 
-  <div class="bottom-half">
-    <!-- Unterer Teil deiner Website -->
-  </div>
+  <script>
+    function toggleMenu() {
+      const sidebar = document.getElementById("mySidebar");
+      const overlay = document.getElementById("overlay");
+      if (sidebar.style.width === "250px") {
+        sidebar.style.width = "0";
+        overlay.style.display = "none";
+      } else {
+        sidebar.style.width = "250px";
+        overlay.style.display = "block";
+      }
+    }
 
+    function openSection(id) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById(id).style.display = 'block';
+      toggleMenu();
+    }
+
+    const stars = document.querySelectorAll('#stars span');
+    const averageDisplay = document.getElementById('average');
+    let ratings = JSON.parse(localStorage.getItem('ratings')) || [];
+
+    function updateAverage() {
+      if (ratings.length === 0) {
+        averageDisplay.textContent = "Noch keine Bewertungen.";
+        return;
+      }
+      const sum = ratings.reduce((a, b) => a + b, 0);
+      const avg = (sum / ratings.length).toFixed(1);
+      averageDisplay.textContent = `Durchschnitt: ${avg} Sterne (${ratings.length} Bewertungen)`;
+    }
+
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        const rating = parseInt(star.dataset.star);
+        ratings.push(rating);
+        localStorage.setItem('ratings', JSON.stringify(ratings));
+        stars.forEach(s => s.classList.remove('selected'));
+        for (let i = 0; i < rating; i++) {
+          stars[i].classList.add('selected');
+        }
+        updateAverage();
+      });
+    });
+
+    updateAverage();
+  </script>
 </body>
 </html>
