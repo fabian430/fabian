@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fabian Töllner</title>
   <style>
     * {
@@ -11,10 +11,65 @@
       padding: 0;
     }
 
-    body {
+    body, html {
+      height: 100%;
       font-family: sans-serif;
-      background: white;
+    }
+
+    .half {
+      height: 50vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .top-half {
+      background-color: black;
+      color: white;
+    }
+
+    .bottom-half {
+      background-color: white;
       color: black;
+      flex-direction: column;
+    }
+
+    .name {
+      font-size: 3em;
+      font-weight: bold;
+      background: linear-gradient(to bottom, white 50%, black 50%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      position: absolute;
+      top: calc(50vh - 1.5em);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .main-content {
+      padding: 80px 20px 40px;
+      text-align: center;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .stars {
+      font-size: 2em;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .stars .selected {
+      color: gold;
+    }
+
+    #average {
+      margin-top: 15px;
+      font-size: 1.2em;
     }
 
     /* Hamburger Menü */
@@ -60,35 +115,6 @@
     .sidebar a:hover {
       background-color: #575757;
     }
-
-    .main {
-      padding: 100px 20px 40px;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-    }
-
-    .section {
-      display: none;
-    }
-
-    .stars {
-      font-size: 2em;
-      cursor: pointer;
-      color: #ccc;
-    }
-
-    .stars .selected {
-      color: gold;
-    }
-
-    #average {
-      margin-top: 15px;
-      font-size: 1.2em;
-    }
   </style>
 </head>
 <body>
@@ -107,10 +133,13 @@
     <a href="#" onclick="openSection('bewertung')">Bewertung</a>
   </div>
 
-  <!-- Inhalt -->
-  <div class="main">
-    <h1>Fabian Töllner</h1>
+  <!-- Farblich geteilte Hälfte -->
+  <div class="half top-half"></div>
+  <div class="half bottom-half"></div>
+  <div class="name">Fabian Töllner</div>
 
+  <!-- Inhalte (aus Menü) -->
+  <div class="main-content">
     <div id="date" class="section">
       <p>Schreib mir wann und wo!</p>
       <a href="tel:+4915773791110">+4915773791110</a>
@@ -137,11 +166,7 @@
   <script>
     function toggleMenu() {
       const sidebar = document.getElementById("mySidebar");
-      if (sidebar.style.width === "250px") {
-        sidebar.style.width = "0";
-      } else {
-        sidebar.style.width = "250px";
-      }
+      sidebar.style.width = sidebar.style.width === "250px" ? "0" : "250px";
     }
 
     function openSection(id) {
@@ -152,10 +177,9 @@
       toggleMenu();
     }
 
-    // Bewertungssystem mit Speicher
+    // Bewertung speichern + anzeigen
     const stars = document.querySelectorAll('#stars span');
     const averageDisplay = document.getElementById('average');
-
     let ratings = JSON.parse(localStorage.getItem('ratings')) || [];
 
     function updateAverage() {
