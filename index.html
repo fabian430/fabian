@@ -7,7 +7,7 @@
   <style>
     body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
     header { background: #222; color: white; padding: 1em; position: relative; }
-    h1 { margin: 0; font-size: 24px; }
+    h1 { margin: 0 0 0 60px; font-size: 24px; } /* Name nach rechts gerückt */
     .menu-icon { position: absolute; left: 1em; top: 1em; cursor: pointer; }
     .bar { width: 25px; height: 3px; background-color: white; margin: 5px 0; }
     nav { display: none; flex-direction: column; background: #333; padding: 1em; }
@@ -87,13 +87,18 @@
       event.preventDefault();
       const message = document.getElementById('dateMessage').value;
 
-      // Simulierter Versand (in echt z. B. per E-Mail-Service wie Formspree)
+      // Simulierter Versand (in echt: z. B. per Formspree)
       document.getElementById('dateStatus').innerText = "Danke für deine Nachricht!";
       console.log("Date Anfrage:", message);
       document.getElementById('dateMessage').value = '';
     }
 
     function rate(stars) {
+      if (localStorage.getItem('alreadyRated')) {
+        alert("Du hast bereits abgestimmt. Danke!");
+        return;
+      }
+
       ratings.total++;
       ratings.sum += stars;
       const avg = (ratings.sum / ratings.total).toFixed(1);
@@ -104,7 +109,7 @@
         el.classList.toggle('selected', i < stars);
       });
 
-      // In echtem Projekt: Speichern auf Server oder mit localStorage
+      localStorage.setItem('alreadyRated', 'true');
     }
   </script>
 </body>
