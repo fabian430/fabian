@@ -2,191 +2,110 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fabian Töllner</title>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body {
-      height: 100%;
-      font-family: Arial, sans-serif;
-      overflow-x: hidden;
-    }
-    .top-half {
-      height: 50vh;
-      background-color: black;
-    }
-    .bottom-half {
-      height: 50vh;
-      background-color: white;
-    }
-    .name-line {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3em;
-      font-weight: bold;
-      text-align: center;
-      background: linear-gradient(to bottom, white 49%, black 51%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .hamburger {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      z-index: 1001;
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background: #222; color: white; padding: 1em; position: relative; }
+    h1 { margin: 0; font-size: 24px; }
+    .menu-icon { position: absolute; left: 1em; top: 1em; cursor: pointer; }
+    .bar { width: 25px; height: 3px; background-color: white; margin: 5px 0; }
+    nav { display: none; flex-direction: column; background: #333; padding: 1em; }
+    nav a { color: white; padding: 0.5em 0; text-decoration: none; }
+    .section { display: none; padding: 1em; }
+    .visible { display: block; }
+
+    .rating-stars span {
+      font-size: 24px;
       cursor: pointer;
-      width: 30px;
-      height: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      color: #ccc;
     }
-    .hamburger span {
-      display: block;
-      height: 4px;
-      background: white;
-      border-radius: 2px;
-    }
-    .menu {
-      position: fixed;
-      top: 0;
-      left: -250px;
-      width: 250px;
-      height: 100%;
-      background: #222;
-      color: white;
-      padding: 60px 20px;
-      box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-      transition: left 0.3s ease;
-      z-index: 1000;
-    }
-    .menu.open { left: 0; }
-    .menu a {
-      display: block;
-      margin: 20px 0;
-      color: white;
-      text-decoration: none;
-      font-size: 1.2em;
-      cursor: pointer;
-    }
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.4);
-      z-index: 999;
-    }
-    .overlay.active { display: block; }
-    .section {
-      padding: 30px;
-      display: none;
-    }
-    .section.active { display: block; }
-    .stars {
-      font-size: 2em;
+
+    .rating-stars span.selected {
       color: gold;
-      cursor: pointer;
-    }
-    .rating-summary {
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
-    .rating-history {
-      margin-top: 10px;
-      font-size: 1em;
-    }
-    .contact-link {
-      font-size: 1.5em;
-      text-align: center;
-      margin-top: 20px;
-    }
-    .contact-link a {
-      text-decoration: none;
-      color: black;
     }
   </style>
 </head>
 <body>
+  <header>
+    <div class="menu-icon" onclick="toggleMenu()">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <h1>Fabian Töllner</h1>
+  </header>
 
-  <div class="top-half"></div>
-  <div class="bottom-half"></div>
-  <div class="name-line">Fabian Töllner</div>
+  <nav id="menu">
+    <a href="#" onclick="showSection('kontakt')">Kontakt</a>
+    <a href="#" onclick="showSection('date')">Date</a>
+    <a href="#" onclick="showSection('bewerten')">Bewerten</a>
+  </nav>
 
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
+  <section id="kontakt" class="section">
+    <h2>Kontakt</h2>
+    <p><a href="tel:+4915773791110">+49 1577 3791110</a></p>
+  </section>
 
-  <div class="overlay" onclick="closeMenu()"></div>
+  <section id="date" class="section">
+    <h2>Date vorschlagen</h2>
+    <form onsubmit="sendDate(event)">
+      <label>Nachricht:</label><br>
+      <textarea id="dateMessage" rows="5" style="width:100%" required></textarea><br><br>
+      <button type="submit">Absenden</button>
+    </form>
+    <p id="dateStatus"></p>
+  </section>
 
-  <div class="menu" id="menu">
-    <a onclick="showSection('date')">Date</a>
-    <a onclick="showSection('kontakt')">Kontakt</a>
-    <a onclick="showSection('bewertungen')">Bewertungen</a>
-  </div>
-
-  <div id="date" class="section">
-    <h2>Coming soon...</h2>
-  </div>
-
-  <div id="kontakt" class="section contact-link">
-    <a href="tel:+4915773791110">+4915773791110</a>
-  </div>
-
-  <div id="bewertungen" class="section">
-    <div class="stars" id="starContainer">
+  <section id="bewerten" class="section">
+    <h2>Bewertung</h2>
+    <div class="rating-stars" id="rating">
       <span onclick="rate(1)">★</span>
       <span onclick="rate(2)">★</span>
       <span onclick="rate(3)">★</span>
       <span onclick="rate(4)">★</span>
       <span onclick="rate(5)">★</span>
     </div>
-    <div class="rating-summary" id="ratingSummary">Durchschnitt: 4.8 Sterne (11 Bewertungen)</div>
-    <div class="rating-history" id="ratingHistory"></div>
-  </div>
+    <p id="ratingSummary">4.7 Sterne bei 11 Bewertungen</p>
+  </section>
 
   <script>
-    let isMenuOpen = false;
-    let ratings = [5, 5, 4, 5, 4, 5, 5, 5, 4, 5, 5];
+    let ratings = { total: 11, sum: 4.7 * 11 };
 
     function toggleMenu() {
-      isMenuOpen = !isMenuOpen;
-      document.getElementById('menu').classList.toggle('open', isMenuOpen);
-      document.querySelector('.overlay').classList.toggle('active', isMenuOpen);
-    }
-
-    function closeMenu() {
-      isMenuOpen = false;
-      document.getElementById('menu').classList.remove('open');
-      document.querySelector('.overlay').classList.remove('active');
+      const menu = document.getElementById('menu');
+      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
     }
 
     function showSection(id) {
-      closeMenu();
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      const section = document.getElementById(id);
-      if (section) section.classList.add('active');
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
+      document.getElementById(id).classList.add('visible');
+      document.getElementById('menu').style.display = 'none';
+    }
+
+    function sendDate(event) {
+      event.preventDefault();
+      const message = document.getElementById('dateMessage').value;
+
+      // Simulierter Versand (in echt z. B. per E-Mail-Service wie Formspree)
+      document.getElementById('dateStatus').innerText = "Danke für deine Nachricht!";
+      console.log("Date Anfrage:", message);
+      document.getElementById('dateMessage').value = '';
     }
 
     function rate(stars) {
-      ratings.push(stars);
-      updateRating();
-    }
+      ratings.total++;
+      ratings.sum += stars;
+      const avg = (ratings.sum / ratings.total).toFixed(1);
+      document.getElementById('ratingSummary').innerText = `${avg} Sterne bei ${ratings.total} Bewertungen`;
 
-    function updateRating() {
-      const total = ratings.reduce((a, b) => a + b, 0);
-      const avg = (total / ratings.length).toFixed(1);
-      document.getElementById('ratingSummary').textContent =
-        `Durchschnitt: ${avg} Sterne (${ratings.length} Bewertungen)`;
-      document.getElementById('ratingHistory').innerHTML = ratings
-        .map(r => '★'.repeat(r) + '☆'.repeat(5 - r)).reverse().join('<br>');
-    }
+      const starsEls = document.querySelectorAll('#rating span');
+      starsEls.forEach((el, i) => {
+        el.classList.toggle('selected', i < stars);
+      });
 
-    updateRating();
+      // In echtem Projekt: Speichern auf Server oder mit localStorage
+    }
   </script>
-
 </body>
 </html>
