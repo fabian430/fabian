@@ -5,28 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fabian Töllner</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body, html {
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
       height: 100%;
       font-family: Arial, sans-serif;
       overflow-x: hidden;
     }
-
     .top-half {
       height: 50vh;
       background-color: black;
     }
-
     .bottom-half {
       height: 50vh;
       background-color: white;
     }
-
     .name-line {
       position: absolute;
       top: 50%;
@@ -39,8 +31,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
-    /* Hamburger */
     .hamburger {
       position: fixed;
       top: 20px;
@@ -53,15 +43,12 @@
       flex-direction: column;
       justify-content: space-between;
     }
-
     .hamburger span {
       display: block;
       height: 4px;
       background: white;
       border-radius: 2px;
     }
-
-    /* Menu */
     .menu {
       position: fixed;
       top: 0;
@@ -75,11 +62,7 @@
       transition: left 0.3s ease;
       z-index: 1000;
     }
-
-    .menu.open {
-      left: 0;
-    }
-
+    .menu.open { left: 0; }
     .menu a {
       display: block;
       margin: 20px 0;
@@ -88,8 +71,6 @@
       font-size: 1.2em;
       cursor: pointer;
     }
-
-    /* Overlay */
     .overlay {
       display: none;
       position: fixed;
@@ -99,43 +80,30 @@
       background: rgba(0,0,0,0.4);
       z-index: 999;
     }
-
-    .overlay.active {
-      display: block;
-    }
-
-    /* Content Sections */
+    .overlay.active { display: block; }
     .section {
       padding: 30px;
       display: none;
     }
-
-    .section.active {
-      display: block;
-    }
-
+    .section.active { display: block; }
     .stars {
       font-size: 2em;
       color: gold;
       cursor: pointer;
     }
-
     .rating-summary {
       margin-top: 10px;
       font-size: 1.2em;
     }
-
     .rating-history {
       margin-top: 10px;
       font-size: 1em;
     }
-
     .contact-link {
       font-size: 1.5em;
       text-align: center;
       margin-top: 20px;
     }
-
     .contact-link a {
       text-decoration: none;
       color: black;
@@ -148,24 +116,18 @@
   <div class="bottom-half"></div>
   <div class="name-line">Fabian Töllner</div>
 
-  <!-- Hamburger -->
   <div class="hamburger" onclick="toggleMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </div>
 
-  <!-- Overlay -->
   <div class="overlay" onclick="closeMenu()"></div>
 
-  <!-- Menu -->
   <div class="menu" id="menu">
     <a onclick="showSection('date')">Date</a>
     <a onclick="showSection('kontakt')">Kontakt</a>
     <a onclick="showSection('bewertungen')">Bewertungen</a>
   </div>
 
-  <!-- Sections -->
   <div id="date" class="section">
     <h2>Coming soon...</h2>
   </div>
@@ -188,7 +150,7 @@
 
   <script>
     let isMenuOpen = false;
-    let ratings = [5, 5, 4, 5, 4, 5, 5, 5, 4, 5, 5]; // 11 Bewertungen
+    let ratings = [5, 5, 4, 5, 4, 5, 5, 5, 4, 5, 5];
 
     function toggleMenu() {
       isMenuOpen = !isMenuOpen;
@@ -205,7 +167,8 @@
     function showSection(id) {
       closeMenu();
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+      const section = document.getElementById(id);
+      if (section) section.classList.add('active');
     }
 
     function rate(stars) {
@@ -222,7 +185,6 @@
         .map(r => '★'.repeat(r) + '☆'.repeat(5 - r)).reverse().join('<br>');
     }
 
-    // Initial anzeigen
     updateRating();
   </script>
 
