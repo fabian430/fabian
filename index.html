@@ -49,12 +49,12 @@
 
   <section id="date" class="section">
     <h2>Date vorschlagen</h2>
-    <form onsubmit="sendDate(event)">
-      <label>Nachricht:</label><br>
-      <textarea id="dateMessage" rows="5" style="width:100%" required></textarea><br><br>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <label>Nachricht (Tag, Uhrzeit, Ort):</label><br>
+      <textarea name="message" rows="5" style="width:100%" required></textarea><br><br>
       <button type="submit">Absenden</button>
     </form>
-    <p id="dateStatus"></p>
+    <p>Du bekommst eine Bestätigung, sobald die Nachricht abgeschickt wurde.</p>
   </section>
 
   <section id="bewerten" class="section">
@@ -81,16 +81,6 @@
       document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
       document.getElementById(id).classList.add('visible');
       document.getElementById('menu').style.display = 'none';
-    }
-
-    function sendDate(event) {
-      event.preventDefault();
-      const message = document.getElementById('dateMessage').value;
-
-      // Simulierter Versand (in echt: z. B. per Formspree)
-      document.getElementById('dateStatus').innerText = "Danke für deine Nachricht!";
-      console.log("Date Anfrage:", message);
-      document.getElementById('dateMessage').value = '';
     }
 
     function rate(stars) {
