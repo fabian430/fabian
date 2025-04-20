@@ -92,11 +92,8 @@
   <script>
     let selectedStars = 0;
 
-    let reviews = [
-      { stars: 5, text: "Super sympathisch und ehrlich." },
-      { stars: 4, text: "War ein cooles Treffen, gerne wieder!" },
-      { stars: 5, text: "10/10, sehr angenehm." }
-    ];
+    // Leeres Array für Bewertungen, keine initialen Bewertungen
+    let reviews = [];
 
     function toggleMenu() {
       const menu = document.getElementById('menu');
@@ -146,7 +143,7 @@
       let sum = reviews.reduce((a, b) => a + b.stars, 0);
       let avg = (sum / total).toFixed(1);
 
-      summary.innerText = `${avg} Sterne bei ${total} Bewertungen`;
+      summary.innerText = total > 0 ? `${avg} Sterne bei ${total} Bewertungen` : "Noch keine Bewertungen.";
 
       all.innerHTML = "";
       reviews.slice().reverse().forEach(r => {
