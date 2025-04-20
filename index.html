@@ -66,8 +66,15 @@
   <section id="date" class="section">
     <h2>Date vorschlagen</h2>
     <form action="https://formspree.io/f/xldjyrzz" method="POST">
-      <label>Nachricht (Tag, Uhrzeit, Ort):</label><br>
-      <textarea name="message" rows="5" style="width:100%" required></textarea><br><br>
+      <label for="name">Name:</label><br>
+      <input type="text" id="name" name="name" required><br><br>
+
+      <label for="age">Alter:</label><br>
+      <input type="number" id="age" name="age" required><br><br>
+
+      <label for="message">Nachricht (Tag, Uhrzeit, Ort):</label><br>
+      <textarea id="message" name="message" rows="5" style="width:100%" required></textarea><br><br>
+
       <button type="submit">Absenden</button>
     </form>
     <p>Du bekommst eine Bestätigung, sobald die Nachricht abgeschickt wurde.</p>
