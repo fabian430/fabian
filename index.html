@@ -52,10 +52,11 @@
     <a href="#" onclick="showSection('kontakt')">Kontakt</a>
     <a href="#" onclick="showSection('date')">Date</a>
     <a href="#" onclick="showSection('bewerten')">Bewerten</a>
+    <a href="#" onclick="showSection('paypal')">Unterstützen</a>
   </nav>
 
   <section id="startseite" class="section visible">
-    <!-- Keine Anzeige des Namens hier -->
+    <!-- Leere Startseite -->
   </section>
 
   <section id="kontakt" class="section">
@@ -96,10 +97,17 @@
     <div id="allReviews" style="margin-top:20px;"></div>
   </section>
 
+  <section id="paypal" class="section">
+    <h2>Unterstützen</h2>
+    <p>Wenn dir die Seite gefällt, kannst du gerne was dalassen:</p>
+    <form action="https://www.paypal.com/donate/" method="post" target="_blank">
+      <input type="hidden" name="hosted_button_id" value="YBGKYYZRL6XTE">
+      <input type="submit" value="Via PayPal unterstützen" style="padding: 10px; background: #ffc439; border: none; font-weight: bold; cursor: pointer;">
+    </form>
+  </section>
+
   <script>
     let selectedStars = 0;
-
-    // Leeres Array für Bewertungen, keine initialen Bewertungen
     let reviews = [];
 
     function toggleMenu() {
