@@ -16,6 +16,25 @@
     .section { display: none; padding: 1em; }
     .visible { display: block; }
 
+    .rating-stars span {
+      font-size: 24px;
+      cursor: pointer;
+      color: #ccc;
+    }
+
+    .rating-stars span.selected {
+      color: gold;
+    }
+
+    .review {
+      border-top: 1px solid #ccc;
+      padding: 10px 0;
+    }
+
+    .review-stars {
+      color: gold;
+      font-size: 18px;
+    }
   </style>
 </head>
 <body>
@@ -32,11 +51,11 @@
     <a href="#" onclick="showSection('startseite')">Startseite</a>
     <a href="#" onclick="showSection('kontakt')">Kontakt</a>
     <a href="#" onclick="showSection('date')">Date</a>
+    <a href="#" onclick="showSection('bewerten')">Bewerten</a>
   </nav>
 
   <section id="startseite" class="section visible">
-    <h2>Fabian Töllner</h2>
-    <!-- Hier könnte später noch etwas anderes hinzukommen -->
+    <!-- Keine Anzeige des Namens hier -->
   </section>
 
   <section id="kontakt" class="section">
@@ -54,7 +73,31 @@
     <p>Du bekommst eine Bestätigung, sobald die Nachricht abgeschickt wurde.</p>
   </section>
 
+  <section id="bewerten" class="section">
+    <h2>Bewertung</h2>
+    <div class="rating-stars" id="ratingStars">
+      <span onclick="selectStars(1)">★</span>
+      <span onclick="selectStars(2)">★</span>
+      <span onclick="selectStars(3)">★</span>
+      <span onclick="selectStars(4)">★</span>
+      <span onclick="selectStars(5)">★</span>
+    </div>
+    <textarea id="feedbackText" rows="4" style="width:100%; margin-top:10px;" placeholder="Schreib hier deine ehrliche Meinung..." required></textarea><br>
+    <button onclick="submitReview()" style="margin-top:10px;">Absenden</button>
+
+    <p id="ratingSummary" style="margin-top:20px;"></p>
+    <div id="allReviews" style="margin-top:20px;"></div>
+  </section>
+
   <script>
+    let selectedStars = 0;
+
+    let reviews = [
+      { stars: 5, text: "Super sympathisch und ehrlich." },
+      { stars: 4, text: "War ein cooles Treffen, gerne wieder!" },
+      { stars: 5, text: "10/10, sehr angenehm." }
+    ];
+
     function toggleMenu() {
       const menu = document.getElementById('menu');
       menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
@@ -64,6 +107,55 @@
       document.querySelectorAll('.section').forEach(s => s.classList.remove('visible'));
       document.getElementById(id).classList.add('visible');
       document.getElementById('menu').style.display = 'none';
+      if (id === 'bewerten') showReviews();
+    }
+
+    function selectStars(n) {
+      selectedStars = n;
+      document.querySelectorAll('#ratingStars span').forEach((el, i) => {
+        el.classList.toggle('selected', i < n);
+      });
+    }
+
+    function submitReview() {
+      if (localStorage.getItem("reviewed")) {
+        alert("Du hast schon eine Bewertung abgegeben. Danke!");
+        return;
+      }
+
+      const text = document.getElementById("feedbackText").value.trim();
+      if (selectedStars === 0 || text === "") {
+        alert("Bitte wähle eine Sternebewertung und gib einen Text ein.");
+        return;
+      }
+
+      reviews.push({ stars: selectedStars, text: text });
+      localStorage.setItem("reviewed", "true");
+      showReviews();
+      document.getElementById("feedbackText").value = "";
+      selectedStars = 0;
+      document.querySelectorAll('#ratingStars span').forEach(el => el.classList.remove('selected'));
+      alert("Danke für dein Feedback!");
+    }
+
+    function showReviews() {
+      const summary = document.getElementById("ratingSummary");
+      const all = document.getElementById("allReviews");
+
+      let total = reviews.length;
+      let sum = reviews.reduce((a, b) => a + b.stars, 0);
+      let avg = (sum / total).toFixed(1);
+
+      summary.innerText = `${avg} Sterne bei ${total} Bewertungen`;
+
+      all.innerHTML = "";
+      reviews.slice().reverse().forEach(r => {
+        const div = document.createElement("div");
+        div.className = "review";
+        const stars = "★".repeat(r.stars) + "☆".repeat(5 - r.stars);
+        div.innerHTML = `<div class="review-stars">${stars}</div><div>${r.text}</div>`;
+        all.appendChild(div);
+      });
     }
   </script>
 </body>
