@@ -13,56 +13,40 @@
       align-items: center;
       background: linear-gradient(to bottom, black 50%, white 50%);
       font-family: 'Helvetica Neue', sans-serif;
-      overflow: hidden;
     }
-    
+
     .name {
-      font-size: 8vw;
-      font-weight: 800;
+      font-size: 4rem; /* Nicht zu groß */
+      font-weight: 500; /* Nicht zu fett */
       position: relative;
       color: transparent;
+      line-height: 1;
     }
-    
-    .name-letter {
-      position: relative;
-      display: inline-block;
-    }
-    
-    .name-letter::before,
-    .name-letter::after {
-      content: attr(data-char);
+
+    .name::before,
+    .name::after {
+      content: "Fabian Töllner";
       position: absolute;
       left: 0;
       width: 100%;
+      height: 50%;
       overflow: hidden;
     }
-    
-    .name-letter::before {
+
+    .name::before {
       top: 0;
-      height: 50%;
       color: white;
       clip-path: inset(0 0 50% 0);
     }
-    
-    .name-letter::after {
+
+    .name::after {
       bottom: 0;
-      height: 50%;
       color: black;
       clip-path: inset(50% 0 0 0);
     }
   </style>
 </head>
 <body>
-  <div class="name" id="name"></div>
-
-  <script>
-    const name = "Fabian Töllner";
-    const container = document.getElementById('name');
-    
-    // Jeden Buchstaben einzeln verarbeiten
-    container.innerHTML = name.split('').map(char => 
-      `<span class="name-letter" data-char="${char}">${char}</span>`
-    ).join('');
-  </script>
+  <div class="name">Fabian Töllner</div>
 </body>
 </html>
