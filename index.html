@@ -16,8 +16,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, white 50%, black 50%);
-    color: white;
+    /* Hintergrund oben schwarz, unten weiß */
+    background: linear-gradient(to bottom, black 50%, white 50%);
+    color: white; /* Standardfarbe Text, wird aber durch Pseudoelemente überschrieben */
   }
   .name {
     font-size: 4rem;
@@ -25,7 +26,7 @@
     position: relative;
     line-height: 1;
   }
-  /* Text halbieren mit zweifarbigem Effekt */
+  /* Obere Hälfte der Buchstaben weiß */
   .name::before {
     content: attr(data-text);
     position: absolute;
@@ -37,6 +38,7 @@
     color: white;
     clip-path: inset(0 0 50% 0);
   }
+  /* Untere Hälfte der Buchstaben schwarz */
   .name::after {
     content: attr(data-text);
     position: absolute;
@@ -49,7 +51,7 @@
     clip-path: inset(50% 0 0 0);
   }
   .name span {
-    visibility: hidden;
+    visibility: hidden; /* Versteckt den originalen Text, da Pseudo-Elemente den Effekt erzeugen */
   }
   .contact {
     margin-top: 1rem;
