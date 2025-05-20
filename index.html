@@ -9,11 +9,11 @@
       margin: 0;
       height: 100vh;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       background: black;
       font-family: 'Arial', sans-serif;
+      position: relative; /* Neu für Kontaktabschnitt */
     }
     
     .name {
@@ -21,7 +21,6 @@
       position: relative;
       color: transparent;
       line-height: 1;
-      margin-bottom: 1.5rem;
     }
     
     .name::before,
@@ -45,22 +44,24 @@
       color: black;
       background: white;
     }
-    
+
+    /* Neu: Unauffällige Kontaktangaben */
     .contact {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
       text-align: center;
+      font-size: 0.8rem;
       color: black;
       background: white;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      line-height: 1.4;
+      padding: 4px 0;
     }
   </style>
 </head>
 <body>
   <div class="name">Fabian Töllner</div>
   <div class="contact">
-    0157 73791110<br>
-    text me
+    0157 73791110 &middot; text me
   </div>
 </body>
 </html>
