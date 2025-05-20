@@ -1,55 +1,71 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fabian Töllner</title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      background: linear-gradient(to bottom, black 50%, white 50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .name {
-      font-size: 4em;
-      font-weight: bold;
-      background: linear-gradient(to bottom, white 50%, black 50%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      color: transparent;
-      position: relative;
-      z-index: 2;
-    }
-
-    .info {
-      margin-top: 3rem;
-      text-align: center;
-      z-index: 2;
-    }
-
-    .info p {
-      margin: 0.3em 0;
-      font-size: 1.4em;
-      color: black;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fabian Töllner</title>
+<style>
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+  }
+  .container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(to bottom, white 50%, black 50%);
+    color: white;
+  }
+  .name {
+    font-size: 4rem;
+    font-weight: bold;
+    position: relative;
+    line-height: 1;
+  }
+  /* Text halbieren mit zweifarbigem Effekt */
+  .name::before {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    color: white;
+    clip-path: inset(0 0 50% 0);
+  }
+  .name::after {
+    content: attr(data-text);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    overflow: hidden;
+    color: black;
+    clip-path: inset(50% 0 0 0);
+  }
+  .name span {
+    visibility: hidden;
+  }
+  .contact {
+    margin-top: 1rem;
+    color: black;
+    text-align: center;
+    font-size: 1.2rem;
+  }
+</style>
 </head>
 <body>
-  <div class="name">Fabian Töllner</div>
-  <div class="info">
-    <p>015773791110</p>
-    <p>text me</p>
+  <div class="container">
+    <div class="name" data-text="Fabian Töllner"><span>Fabian Töllner</span></div>
+    <div class="contact">
+      015773791110<br />
+      text me
+    </div>
   </div>
 </body>
 </html>
