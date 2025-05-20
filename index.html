@@ -12,10 +12,8 @@
       font-family: Arial, sans-serif;
     }
 
-    .container {
-      height: 100vh;
-      position: relative;
-      background: linear-gradient(to bottom, #000 50%, #fff 50%);
+    body {
+      background: linear-gradient(to bottom, black 50%, white 50%);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -25,34 +23,33 @@
     .name {
       font-size: 4em;
       font-weight: bold;
-      line-height: 1;
       background: linear-gradient(to bottom, white 50%, black 50%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       color: transparent;
+      position: relative;
       z-index: 2;
     }
 
     .info {
       margin-top: 3rem;
       text-align: center;
+      z-index: 2;
     }
 
     .info p {
-      margin: 0.5rem 0;
-      font-size: 1.5em;
+      margin: 0.3em 0;
+      font-size: 1.4em;
       color: black;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="name">Fabian Töllner</div>
-    <div class="info">
-      <p>015773791110</p>
-      <p>text me</p>
-    </div>
+  <div class="name">Fabian Töllner</div>
+  <div class="info">
+    <p>015773791110</p>
+    <p>text me</p>
   </div>
 </body>
 </html>
