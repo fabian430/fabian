@@ -14,60 +14,44 @@
 
     .container {
       height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .top {
-      flex: 1;
-      background-color: #000;
-    }
-
-    .bottom {
-      flex: 1;
-      background-color: #fff;
+      position: relative;
+      background: linear-gradient(to bottom, #000 50%, #fff 50%);
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding-top: 4rem;
+      justify-content: center;
     }
 
-    .split-name {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 3em;
+    .name {
+      font-size: 4em;
       font-weight: bold;
       line-height: 1;
       background: linear-gradient(to bottom, white 50%, black 50%);
       -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
       color: transparent;
+      z-index: 2;
+    }
+
+    .info {
+      margin-top: 3rem;
       text-align: center;
     }
 
-    .phone {
+    .info p {
+      margin: 0.5rem 0;
       font-size: 1.5em;
-      color: black;
-      margin: 0.5em 0 0;
-    }
-
-    .textme {
-      font-size: 1.2em;
       color: black;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="top"></div>
-
-    <div class="split-name">Fabian Töllner</div>
-
-    <div class="bottom">
-      <p class="phone">015773791110</p>
-      <p class="textme">text me</p>
+    <div class="name">Fabian Töllner</div>
+    <div class="info">
+      <p>015773791110</p>
+      <p>text me</p>
     </div>
   </div>
 </body>
