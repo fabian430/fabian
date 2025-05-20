@@ -5,60 +5,69 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Fabian Töllner</title>
   <style>
-    * {
+    html, body {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-    }
-
-    body, html {
       height: 100%;
       font-family: Arial, sans-serif;
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
       height: 100vh;
-    }
-
-    .top, .bottom {
-      flex: 1;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
     }
 
     .top {
+      flex: 1;
       background-color: #000;
-      color: #fff;
     }
 
     .bottom {
+      flex: 1;
       background-color: #fff;
-      color: #000;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 4rem;
     }
 
-    h1 {
+    .split-name {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       font-size: 3em;
-      margin-bottom: 0.3em;
+      font-weight: bold;
+      line-height: 1;
+      background: linear-gradient(to bottom, white 50%, black 50%);
+      -webkit-background-clip: text;
+      color: transparent;
+      text-align: center;
     }
 
-    p {
+    .phone {
       font-size: 1.5em;
-      margin: 0.2em 0;
+      color: black;
+      margin: 0.5em 0 0;
+    }
+
+    .textme {
+      font-size: 1.2em;
+      color: black;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="top">
-      <h1>Fabian Töllner</h1>
-    </div>
+    <div class="top"></div>
+
+    <div class="split-name">Fabian Töllner</div>
+
     <div class="bottom">
-      <p>Text me</p>
-      <p>015773791110</p>
+      <p class="phone">015773791110</p>
+      <p class="textme">text me</p>
     </div>
   </div>
 </body>
