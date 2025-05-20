@@ -11,34 +11,35 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(black 50%, white 50%);
+      background: linear-gradient(to bottom, black 50%, white 50%);
       font-family: 'Arial', sans-serif;
     }
-    
+
     .name {
-      font-size: 2.2rem;
+      font-size: 4rem;
       position: relative;
       color: transparent;
       line-height: 1;
     }
-    
+
     .name::before,
     .name::after {
       content: "Fabian Töllner";
       position: absolute;
       width: 100%;
-      height: 100%;
+      height: 50%;
       left: 0;
+      overflow: hidden;
     }
-    
+
     .name::before {
       top: 0;
       color: white;
       clip-path: inset(0 0 50% 0);
     }
-    
+
     .name::after {
-      top: 0;
+      bottom: 0;
       color: black;
       clip-path: inset(50% 0 0 0);
     }
