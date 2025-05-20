@@ -3,48 +3,84 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fabian Töllner</title>
+  <title>Fabian Töllner | Portfolio</title>
   <style>
+    :root {
+      --primary: #000;
+      --secondary: #fff;
+    }
+    
     body {
       margin: 0;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: radial-gradient(circle, black 0%, white 100%);
-      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, var(--primary) 50%, var(--secondary) 50%);
+      font-family: 'Inter', 'Helvetica Neue', sans-serif;
       overflow: hidden;
     }
+
+    .name-container {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
     .name {
-      font-size: 8vw;
-      font-weight: bold;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 800;
+      letter-spacing: -0.05em;
       color: transparent;
       position: relative;
       text-align: center;
+      line-height: 1;
     }
+
     .name::before,
     .name::after {
       content: attr(data-text);
       position: absolute;
       left: 0;
       width: 100%;
-      overflow: hidden;
+      pointer-events: none;
     }
+
     .name::before {
       top: 0;
       height: 50%;
-      color: white;
+      color: var(--secondary);
       clip-path: inset(0 0 50% 0);
     }
+
     .name::after {
       bottom: 0;
       height: 50%;
-      color: black;
+      color: var(--primary);
       clip-path: inset(50% 0 0 0);
+    }
+
+    .domain {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 400;
+      color: var(--primary);
+      mix-blend-mode: difference;
+      position: relative;
+      z-index: 10;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #fff;
+        --secondary: #000;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="name" data-text="Fabian Töllner">Fabian Töllner</div>
+  <div class="name-container">
+    <div class="name" data-text="Fabian Töllner">Fabian Töllner</div>
+  </div>
+  <div class="domain">fabian430.github.io</div>
 </body>
 </html>
