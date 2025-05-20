@@ -12,60 +12,56 @@
       justify-content: center;
       align-items: center;
       background: linear-gradient(to bottom, black 50%, white 50%);
-      font-family: 'Arial', sans-serif;
+      font-family: 'Helvetica Neue', sans-serif;
       overflow: hidden;
     }
     
-    .name-container {
-      position: relative;
-      display: inline-block;
-    }
-    
     .name {
-      font-size: 6rem;
-      font-weight: bold;
+      font-size: 8vw;
+      font-weight: 800;
       position: relative;
-      color: black; /* Fallback */
+      color: transparent;
     }
     
-    .name::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 50%;
-      background: black;
-      z-index: -1;
-    }
-    
-    .name span {
+    .name-letter {
       position: relative;
       display: inline-block;
     }
     
-    .name span::before {
+    .name-letter::before,
+    .name-letter::after {
       content: attr(data-char);
       position: absolute;
-      top: 0;
       left: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+    
+    .name-letter::before {
+      top: 0;
+      height: 50%;
       color: white;
       clip-path: inset(0 0 50% 0);
+    }
+    
+    .name-letter::after {
+      bottom: 0;
+      height: 50%;
+      color: black;
+      clip-path: inset(50% 0 0 0);
     }
   </style>
 </head>
 <body>
-  <div class="name-container">
-    <div class="name" id="split-name">Fabian Töllner</div>
-  </div>
+  <div class="name" id="name"></div>
 
   <script>
-    // JavaScript für präzise Buchstabentrennung
-    const name = document.getElementById('split-name');
-    const chars = name.textContent.split('');
+    const name = "Fabian Töllner";
+    const container = document.getElementById('name');
     
-    name.innerHTML = chars.map(char => 
-      `<span data-char="${char}">${char}</span>`
+    // Jeden Buchstaben einzeln verarbeiten
+    container.innerHTML = name.split('').map(char => 
+      `<span class="name-letter" data-char="${char}">${char}</span>`
     ).join('');
   </script>
 </body>
