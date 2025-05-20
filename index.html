@@ -1,58 +1,67 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fabian Töllner</title>
-<style>
-  html, body {
-    margin: 0;
-    height: 100%;
-    background: linear-gradient(to bottom, black 50%, white 50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-  }
-
-  .name {
-    position: relative;
-    font-size: 5rem;
-    font-weight: bold;
-    line-height: 1;
-    /* Platzhalter unsichtbar, damit Pseudoelemente sichtbar sind */
-    color: transparent;
-  }
-
-  /* Obere Hälfte des Textes: weiß */
-  .name::before {
-    content: attr(data-text);
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    overflow: hidden;
-    color: white;
-    clip-path: inset(0 0 50% 0);
-  }
-
-  /* Untere Hälfte des Textes: schwarz */
-  .name::after {
-    content: attr(data-text);
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50%;
-    overflow: hidden;
-    color: black;
-    clip-path: inset(50% 0 0 0);
-  }
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fabian Töllner</title>
+  <style>
+    /* Reset und Basisstile */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden; /* Verhindert Scrollen */
+    }
+    
+    /* Hintergrund: Schwarz oben, Weiß unten */
+    body {
+      background: linear-gradient(to bottom, #000 50%, #fff 50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    /* Textcontainer */
+    .split-text {
+      position: relative;
+      font-size: 6vw; /* Responsive Schriftgröße */
+      font-weight: bold;
+      line-height: 1;
+      color: transparent; /* Originaltext unsichtbar */
+      text-align: center;
+    }
+    
+    /* Obere Hälfte (weiß auf schwarz) */
+    .split-text::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      color: white;
+      background: black; /* Fallback für präzise Kanten */
+      clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+      overflow: hidden;
+    }
+    
+    /* Untere Hälfte (schwarz auf weiß) */
+    .split-text::after {
+      content: attr(data-text);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50%;
+      color: black;
+      background: white; /* Fallback für präzise Kanten */
+      clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+      overflow: hidden;
+    }
+  </style>
 </head>
 <body>
-  <div class="name" data-text="Fabian Töllner">Fabian Töllner</div>
+  <div class="split-text" data-text="Fabian Töllner">Fabian Töllner</div>
 </body>
 </html>
