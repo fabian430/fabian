@@ -9,9 +9,10 @@
       margin: 0;
       height: 100vh;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      background: black; /* Einfarbiger Hintergrund */
+      background: black;
       font-family: 'Arial', sans-serif;
     }
     
@@ -20,6 +21,7 @@
       position: relative;
       color: transparent;
       line-height: 1;
+      margin-bottom: 1.5rem;
     }
     
     .name::before,
@@ -27,7 +29,7 @@
       content: "Fabian Töllner";
       position: absolute;
       width: 100%;
-      height: 50%; /* Halbe Höhe für jeden Teil */
+      height: 50%;
       left: 0;
       overflow: hidden;
     }
@@ -35,17 +37,30 @@
     .name::before {
       top: 0;
       color: white;
-      background: black; /* Obere Hälfte: Weißer Text auf Schwarz */
+      background: black;
     }
     
     .name::after {
       bottom: 0;
       color: black;
-      background: white; /* Untere Hälfte: Schwarzer Text auf Weiß */
+      background: white;
+    }
+    
+    .contact {
+      text-align: center;
+      color: black;
+      background: white;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
   </style>
 </head>
 <body>
   <div class="name">Fabian Töllner</div>
+  <div class="contact">
+    0157 73791110<br>
+    text me
+  </div>
 </body>
 </html>
